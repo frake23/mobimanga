@@ -55,7 +55,8 @@ export async function getDetails(manga: Manga): Promise<Manga> {
         const raw = script.html()?.split('\n') ?? [];
         for (const line of raw) {
             if (line.includes('window.__DATA__')) {
-                const json = JSON.parse(line.substring(line.indexOf('=') + 1).substring(0, line.indexOf(';')));
+                console.log(line.substring(line.indexOf('=') + 1))
+                const json = JSON.parse(line.substring(line.indexOf('=') + 1).substring(0, line.lastIndexOf(';') - 1));
                 const list = json.chapters.list;
                 const total = list.length;
                 for (let i = 0; i < total; i++) {
@@ -68,7 +69,7 @@ export async function getDetails(manga: Manga): Promise<Manga> {
                     if (!name || name === "null")
                         name = `Том ${item.chapter_volume} Глава ${item.chapter_number}`;
                     chapters.push({
-                        id: '0',
+                        id: await generateUUID(chapterId),
                         url,
                         branch: branchName,
                         number: total - i,
@@ -84,7 +85,7 @@ export async function getDetails(manga: Manga): Promise<Manga> {
     info.find('div.media-tags').first().find('a.media-tag-item').map((_, el) => {
         const a = $(el);
         tags.push({
-            title: a.text().toLowerCase(),
+            title: a.text(),
             key: a.attr('href')!.substring(a.attr('href')!.indexOf('=') + 1)
         })
     });
@@ -93,13 +94,23 @@ export async function getDetails(manga: Manga): Promise<Manga> {
         ...manga,
         title: title.find('div.media-name__main').text(),
         altTitle: title.find('div.media-name__alt').text(),
-        rating: parseFloat(root.find("div.media-rating__value").first().text())
+        rating: parseFloat(info.find("div.media-rating__value").first().text())
             || manga.rating,
-        author: manga.author,
+        author: root.find('div.media-info-list__title')
+                .filter((index, el) => $(el).text().trim() === 'Автор').first().next().text().trim()
+             || manga.author,
         tags,
         description: info.find('div.media-description__text').html(),
         chapters
     } as Manga;
+}
+
+export async function getPages() {
+    // TODO: complete
+}
+
+export async function getTags() {
+    // TODO: complete
 }
 
 function getSortKey(sortOrder?: SortOrder) {
@@ -121,7 +132,7 @@ function getSortKey(sortOrder?: SortOrder) {
 
 async function search(query: string): Promise<Manga[]> {
     const json = await (await fetch(`${baseUrl}/search?type=manga&q=${query}`)).json() as SearchJson;
-    const promised = json.map(async (el) => {
+    return Promise.all(json.map(async (el) => {
         const url = `/${el.slug}`;
         return {
             id: await generateUUID(url),
@@ -133,6 +144,5 @@ async function search(query: string): Promise<Manga[]> {
             coverUrl: `${baseUrl}${el.covers.thumbnail}`,
             largeCoverUrl: `${baseUrl}${el.covers.default}`,
         }
-    })
-    return Promise.all(promised);
+    }))
 }

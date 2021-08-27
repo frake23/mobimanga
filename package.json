@@ -10,10 +10,16 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-navigation/native": "^6.0.2",
     "cheerio": "^1.0.0-rc.10",
     "react": "17.0.1",
     "react-native": "0.64.1",
-    "react-native-sha256": "^1.4.7"
+    "react-native-config": "^1.4.3",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-safe-area-context": "^3.3.0",
+    "react-native-sha256": "^1.4.7",
+    "react-native-svg": "^12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -25,9 +31,11 @@
     "@types/react-native": "^0.64.5",
     "@types/react-test-renderer": "^16.9.2",
     "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
     "eslint": "^7.14.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.64.0",
+    "react-dom": "17.0.1",
     "react-test-renderer": "17.0.1",
     "typescript": "^3.8.3"
   },
