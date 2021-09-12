@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, ViewProps, ViewStyle} from "react-native";
 import {textStyles} from "../theme/textStyles";
-import {colors} from "../theme/colors";
+import {colors} from "../constants/colors";
 
 type Size = 'sm' | 'md' | 'lg';
 
@@ -49,6 +49,7 @@ const primaryStyles = StyleSheet.create({
     button: {
         ...buttonBase,
         backgroundColor: colors.main.primary,
+        
     },
     text: {
         color: colors.bright.primary,

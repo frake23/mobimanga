@@ -1,12 +1,12 @@
 import React from 'react';
-import { useWindowDimensions } from 'react-native';
+import { useDimensions } from '@react-native-community/hooks';
 import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { SvgProps } from 'react-native-svg';
-import ArrowRightIcon from '../../icons/ArrowRight';
-import Close1Icon from '../../icons/Close1';
-import { colors } from '../../theme/colors';
-import spacings from '../../theme/spacings';
+import ArrowRightIcon from '../../icons/ArrowIcon';
+import { colors } from '../../constants/colors';
+import spacings from '../../constants/spacings';
+import CloseIcon from '../../icons/CloseIcon';
+import ArrowIcon from '../../icons/ArrowIcon';
 
 interface IntroNavigationProps {
     viewsCount: number,
@@ -22,7 +22,7 @@ const Circle: React.FC<{size: number}> = ({size}) => {
 }
 
 export const IntroNavigation: React.FC<IntroNavigationProps> = ({viewsCount, selected, onExit, onNext}) => {
-    const {width} = useWindowDimensions();
+    const {width} = useDimensions().window;
     const isLast = viewsCount === selected + 1;
     const left = []; const right = [];
     
@@ -40,7 +40,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({viewsCount, sel
             left.unshift(6);
             leftMargin -= 6;
         }
-        leftMargin -= 12;
+        leftMargin -= 2 * marginHorizontal;
     }
     for (let i = selected + 1; i < viewsCount; i++) {
         if (i === selected + 1) right.push(12);
@@ -60,13 +60,9 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({viewsCount, sel
                 style={styles.buttton}
             >
                 {isLast ?
-                    <Close1Icon 
-                        {...iconStyles}
-                    />
+                    <CloseIcon {...iconStyles} type={1}/>
                     :
-                    <ArrowRightIcon
-                        {...iconStyles}
-                    />
+                    <ArrowIcon {...iconStyles} type="right"/>
                 }
             </TouchableOpacity>
             {
@@ -79,6 +75,8 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({viewsCount, sel
     )
 }
 
+const marginHorizontal = 6;
+
 const styles = StyleSheet.create({
     buttton: {
         width: 48,
@@ -87,7 +85,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 24,
         backgroundColor: colors.main.primary,
-        marginHorizontal: 6
+        marginHorizontal
     },
     container: {
         flexDirection: 'row',
@@ -97,12 +95,11 @@ const styles = StyleSheet.create({
     },
     circle: {
         backgroundColor: colors.bright.fivefold,
-        marginHorizontal: 6
+        marginHorizontal
     }
 })
 
-const iconStyles: SvgProps = {
-    height: 20,
-    width: 20,
-    stroke: colors.bright.primary
+const iconStyles = {
+    size: 20,
+    color: colors.bright.primary
 }

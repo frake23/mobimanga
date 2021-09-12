@@ -50,7 +50,7 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
 
 
-     OkHttpClientProvider.setOkHttpClientFactory(new HttpClientFactory(this.getCacheDir()));
+    OkHttpClientProvider.setOkHttpClientFactory(new HttpClientFactory(this.getCacheDir()));
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
