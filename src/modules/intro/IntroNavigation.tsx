@@ -65,7 +65,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
     Animated.timing(toBig, {
         toValue: 1,
         easing: Easing.ease,
-        duration: 250,
+        duration: 275,
         useNativeDriver: true,
     }).start();
 
@@ -77,12 +77,12 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
                 {
                     scale: toBig.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [0, 6],
+                        outputRange: [1, 6],
                     }),
                 },
             ],
             top: 8,
-            marginHorizontal: 24,
+            marginHorizontal: 24,   
         },
     ];
 
