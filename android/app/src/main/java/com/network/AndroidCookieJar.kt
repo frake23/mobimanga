@@ -1,6 +1,5 @@
 package com.network
 
-import android.util.Log
 import android.webkit.CookieManager
 import okhttp3.Cookie
 import okhttp3.CookieJar
@@ -13,9 +12,8 @@ class AndroidCookieJar : CookieJarContainer {
 
     override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
         val urlString = url.toString()
-        Log.d("DEBUG", urlString);
 
-        cookies.forEach { manager.setCookie(urlString, it.toString()); Log.d("DEBUG", it.toString()) }
+        cookies.forEach { manager.setCookie(urlString, it.toString())}
     }
 
     override fun setCookieJar(cookieJar: CookieJar?) {

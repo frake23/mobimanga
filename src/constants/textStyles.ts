@@ -1,5 +1,5 @@
 import {TextStyle} from "react-native";
-import {colors} from "./colors";
+import {colors} from "../constants/colors";
 
 const fontFamily: {[key: string]: TextStyle} = {
     semiBold: {

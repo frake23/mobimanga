@@ -1,12 +1,16 @@
 import React, {useRef} from 'react';
-import {Animated, Easing, useWindowDimensions} from 'react-native';
-import {StyleSheet, View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
-import {SvgProps} from 'react-native-svg';
-import ArrowRightIcon from '../../icons/ArrowRight';
-import Close1Icon from '../../icons/Close1';
-import {colors} from '../../theme/colors';
-import spacings from '../../theme/spacings';
+import {useDimensions} from '@react-native-community/hooks';
+import {
+    Animated,
+    Easing,
+    StyleSheet,
+    TouchableWithoutFeedback,
+    View,
+} from 'react-native';
+import {colors} from '../../constants/colors';
+import spacings from '../../constants/spacings';
+import CloseIcon from '../../icons/CloseIcon';
+import ArrowIcon from '../../icons/ArrowIcon';
 
 interface IntroNavigationProps {
     viewsCount: number;
@@ -32,7 +36,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
     onExit,
     onNext,
 }) => {
-    const {width} = useWindowDimensions();
+    const {width} = useDimensions().window;
     const isLast = viewsCount === selected + 1;
     const left = [];
     const right = [];
@@ -52,7 +56,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
             left.unshift(6);
             newTranslate -= 6;
         }
-        newTranslate -= 12;
+        newTranslate -= 2 * marginHorizontal;
     }
     for (let i = selected + 1; i < viewsCount; i++) {
         if (i === selected + 1) right.push(12);
@@ -82,7 +86,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
                 },
             ],
             top: 8,
-            marginHorizontal: 24,   
+            marginHorizontal: 24,
         },
     ];
 
@@ -112,9 +116,9 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
                 style={{paddingVertical: 18}}>
                 <Animated.View style={animatedButtonStyles} />
                 {isLast ? (
-                    <Close1Icon {...iconStyles} style={styles.iconMove} />
+                    <CloseIcon {...iconStyles} type={1} />
                 ) : (
-                    <ArrowRightIcon {...iconStyles} style={styles.iconMove} />
+                    <ArrowIcon {...iconStyles} type="right" />
                 )}
             </TouchableWithoutFeedback>
             {right.map((size, index) => (
@@ -124,6 +128,8 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
     );
 };
 
+const marginHorizontal = 6;
+
 const styles = StyleSheet.create({
     buttton: {
         width: 8,
@@ -132,7 +138,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 24,
         backgroundColor: colors.main.primary,
-        marginHorizontal: 6,
+        marginHorizontal,
     },
     container: {
         flexDirection: 'row',
@@ -151,8 +157,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const iconStyles: SvgProps = {
-    height: 20,
-    width: 20,
-    stroke: colors.bright.primary,
+const iconStyles = {
+    size: 20,
+    color: colors.bright.primary,
 };
