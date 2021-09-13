@@ -113,13 +113,17 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
             ))}
             <TouchableWithoutFeedback
                 onPress={isLast ? onExit : onNext}
-                style={{paddingVertical: 18}}>
-                <Animated.View style={animatedButtonStyles} />
-                {isLast ? (
-                    <CloseIcon {...iconStyles} type={1} />
-                ) : (
-                    <ArrowIcon {...iconStyles} type="right" />
-                )}
+                style={{paddingVertical: 1000}}>
+                <View>
+                    <Animated.View style={animatedButtonStyles} />
+                    <View style={styles.iconMove}>
+                        {isLast ? (
+                            <CloseIcon {...iconStyles} type={1} />
+                        ) : (
+                            <ArrowIcon {...iconStyles} type="right" />
+                        )}
+                    </View>
+                </View>
             </TouchableWithoutFeedback>
             {right.map((size, index) => (
                 <Circle size={size} key={index} />
