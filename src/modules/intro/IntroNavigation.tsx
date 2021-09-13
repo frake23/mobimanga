@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Animated, Easing, useWindowDimensions} from 'react-native';
 import {StyleSheet, View} from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SvgProps} from 'react-native-svg';
 import ArrowRightIcon from '../../icons/ArrowRight';
 import Close1Icon from '../../icons/Close1';
@@ -38,18 +38,21 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
     const right = [];
 
     let leftMargin = width / 2 - 30;
+    const translate = useRef(0);
+    let newTranslate = 0;
+
     for (let i = 0; i < selected; i++) {
         if (i === 0) {
             left.push(8);
-            leftMargin -= 8;
+            newTranslate -= 8;
         } else if (i === viewsCount - 2) {
             left.push(12);
-            leftMargin -= 12;
+            newTranslate -= 12;
         } else {
             left.unshift(6);
-            leftMargin -= 6;
+            newTranslate -= 6;
         }
-        leftMargin -= 12;
+        newTranslate -= 12;
     }
     for (let i = selected + 1; i < viewsCount; i++) {
         if (i === selected + 1) right.push(12);
@@ -66,7 +69,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
         useNativeDriver: true,
     }).start();
 
-    const animatedStyles = [
+    const animatedButtonStyles = [
         styles.buttton,
         {
             opacity: toBig,
@@ -79,29 +82,45 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
                 },
             ],
             top: 8,
-            marginHorizontal: 24
+            marginHorizontal: 24,
         },
     ];
 
+    const animatedContainerStyles = [
+        styles.container,
+        {
+            transform: [
+                {
+                    translateX: toBig.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [translate.current, newTranslate],
+                    }),
+                },
+            ],
+        },
+    ];
+
+    translate.current = newTranslate;
+
     return (
-        <View style={[styles.container, {left: leftMargin}]}>
+        <Animated.View style={[animatedContainerStyles, {left: leftMargin}]}>
             {left.map((size, index) => (
                 <Circle size={size} key={index} />
             ))}
             <TouchableWithoutFeedback
                 onPress={isLast ? onExit : onNext}
                 style={{paddingVertical: 18}}>
-                <Animated.View style={animatedStyles} />
+                <Animated.View style={animatedButtonStyles} />
                 {isLast ? (
-                        <Close1Icon {...iconStyles} style={styles.iconMove} />
-                    ) : (
-                        <ArrowRightIcon {...iconStyles} style={styles.iconMove} />
-                    )}
+                    <Close1Icon {...iconStyles} style={styles.iconMove} />
+                ) : (
+                    <ArrowRightIcon {...iconStyles} style={styles.iconMove} />
+                )}
             </TouchableWithoutFeedback>
             {right.map((size, index) => (
                 <Circle size={size} key={index} />
             ))}
-        </View>
+        </Animated.View>
     );
 };
 
@@ -127,9 +146,9 @@ const styles = StyleSheet.create({
     },
     iconMove: {
         left: 18,
-        position: "relative",
-        bottom: 4
-    }
+        position: 'relative',
+        bottom: 5,
+    },
 });
 
 const iconStyles: SvgProps = {
