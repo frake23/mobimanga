@@ -1,6 +1,6 @@
-import MangaTag from "./MangaTag";
-import MangaState from "./MangaState";
-import MangaChapter from "./MangaChapter";
+import {MangaTag} from "./MangaTag";
+import {MangaState} from "./MangaState";
+import {MangaChapter} from "./MangaChapter";
 
 export interface Manga {
     id: string,
