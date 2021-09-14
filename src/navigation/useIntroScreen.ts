@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const introKey = 'first_launch';
 
 function useIntroScreen() {
-    const [isIntro, setIntro] = useState<boolean>(false);
+    const [isIntro, setIntro] = useState(false);
     useEffect(() => {
         const getKey = async () => {
             const firstLaunch = await AsyncStorage.getItem(introKey);
@@ -19,7 +19,7 @@ function useIntroScreen() {
         setIntro(false);
         await AsyncStorage.setItem(introKey, 'false');
     };
-    
+
     return {intro: isIntro, exitIntro}
 }
 

@@ -114,7 +114,7 @@ export const IntroNavigation: React.FC<IntroNavigationProps> = ({
             <TouchableWithoutFeedback
                 onPress={isLast ? onExit : onNext}
                 >
-                <View style={{paddingVertical: 18}}>
+                <View style={styles.wrapper}>
                     <Animated.View style={animatedButtonStyles} />
                     <View style={styles.iconMove}>
                         {isLast ? (
@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         bottom: 5,
     },
+    wrapper: {paddingVertical: 18}
 });
 
 const iconStyles = {

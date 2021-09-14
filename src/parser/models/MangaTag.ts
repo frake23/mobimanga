@@ -1,6 +1,4 @@
-interface MangaTag {
+export interface MangaTag {
     title: string,
     key: string
 }
-
-export default MangaTag;

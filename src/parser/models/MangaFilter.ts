@@ -1,9 +1,8 @@
 import SortOrder from "./SortOrder";
 import MangaTag from "./MangaTag";
 
-interface MangaFilter {
+export interface MangaFilter {
     sortOrder: SortOrder,
     tag?: MangaTag
 }
 
-export default MangaFilter;

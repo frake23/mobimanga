@@ -1,10 +1,10 @@
-import Manga from "../../models/Manga";
+import {Manga} from "../../models/Manga";
 import {SearchJson} from "./types";
-import SortOrder from "../../models/SortOrder";
-import MangaTag from "../../models/MangaTag";
+import {SortOrder} from "../../models/SortOrder";
+import {MangaTag} from "../../models/MangaTag";
 import cheerio from 'cheerio';
 import {generateUUID, urlUtils} from "../../utils";
-import MangaChapter from "../../models/MangaChapter";
+import {MangaChapter} from "../../models/MangaChapter";
 
 const baseUrl = "https://mangalib.me";
 

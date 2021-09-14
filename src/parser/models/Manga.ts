@@ -2,7 +2,7 @@ import MangaTag from "./MangaTag";
 import MangaState from "./MangaState";
 import MangaChapter from "./MangaChapter";
 
-interface Manga {
+export interface Manga {
     id: string,
     title: string,
     altTitle?: string,
@@ -19,4 +19,3 @@ interface Manga {
     chapters?: MangaChapter[]
 }
 
-export default Manga;

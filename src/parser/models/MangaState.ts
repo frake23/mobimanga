@@ -1,5 +1,3 @@
-enum MangaState {
+export enum MangaState {
     ONGOING, FINISHED
 }
-
-export default MangaState;
