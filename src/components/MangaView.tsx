@@ -3,10 +3,13 @@ import { StyleSheet, View, Image, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../constants/colors';
 import { textStyles } from '../constants/textStyles';
+import { FavouriteButton } from './FavouriteButton';
 
-interface Props {}
+interface Props {
+    showFavorite: boolean;
+}
 
-export const MangaView: React.FC<Props> = React.memo(() => {
+export const MangaView: React.FC<Props> = React.memo(({ showFavorite }) => {
     return (
         <View style={styles.container}>
             <Image
@@ -19,8 +22,7 @@ export const MangaView: React.FC<Props> = React.memo(() => {
                 <Text
                     numberOfLines={2}
                     lineBreakMode="tail"
-                    style={[textStyles.headlineTable, styles.name]}
-                >
+                    style={[textStyles.headlineTable, styles.name]}>
                     Манга с длинным названием
                 </Text>
             </LinearGradient>
@@ -29,6 +31,9 @@ export const MangaView: React.FC<Props> = React.memo(() => {
                     5.00
                 </Text>
             </View>
+            {showFavorite && (
+                <FavouriteButton isFavourited={true} />
+            )}
         </View>
     );
 });
@@ -60,7 +65,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     ratingContainer: {
-        position: "absolute",
+        position: 'absolute',
         top: 4,
         left: 4,
         paddingVertical: 4,
@@ -69,6 +74,6 @@ const styles = StyleSheet.create({
         borderRadius: 8,
     },
     ratingNumber: {
-        color: colors.other.purple
+        color: colors.other.purple,
     }
 });

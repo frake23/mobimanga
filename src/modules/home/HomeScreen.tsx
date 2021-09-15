@@ -1,10 +1,10 @@
 import React from 'react';
-import { SeasonManga } from './SeasonManga';
+import { MangaGallery } from '../../components/MangaGallery';
 
 interface Props {}
 
 export const MainScreen: React.FC = () => {
     return (
-        <SeasonManga />
+        <MangaGallery title="Манга сезона" />
     );
 };
