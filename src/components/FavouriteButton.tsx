@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { colors } from '../constants/colors';
 import FavouriteIcon from '../icons/FavouriteIcon';
 
@@ -8,30 +8,39 @@ interface Props {
 }
 
 export const FavouriteButton: React.FC<Props> = ({ isFavourited }) => {
+    const [favourite, setFavourite] = useState(isFavourited);
+
+    const handlePress = () => {
+        setFavourite(!favourite);
+        console.log('pressed');
+    };
+
     return (
-        <View
-            style={[
-                styles.wrapper,
-                isFavourited ? styles.favourite : styles.notFavourite,
-            ]}>
-            <FavouriteIcon
-                size={16}
-                type={isFavourited ? 'filled' : 'outlined'}
-                color={
-                    isFavourited ? colors.bright.primary : colors.dark.primary
-                }
-            />
-        </View>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+            <View style={[favourite ? styles.favourite : styles.notFavourite, styles.wrapper]}>
+                <FavouriteIcon
+                    size={16}
+                    type={favourite ? 'filled' : 'outlined'}
+                    color={
+                        favourite ? colors.bright.primary : colors.dark.primary
+                    }
+                />
+            </View>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
-    wrapper: {
+    button: {
         position: 'absolute',
         top: 8,
         right: 8,
+        zIndex: 10
+    },
+    wrapper: {
         padding: 4,
         borderRadius: 8,
+
     },
     notFavourite: {
         backgroundColor: colors.bright.primary,
@@ -45,6 +54,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.64,
         shadowRadius: 5.0,
-        elevation: 24
+        elevation: 24,
     },
 });

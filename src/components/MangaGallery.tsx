@@ -46,8 +46,6 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
     });
     const { width } = useDimensions().window;
     const listWidthRef = useRef(0);
-    const fadeLocationsFromRight = [0, spacings.xs / width];
-    const fadeLocationsFromLeft = [1 - spacings.xs / width, 1];
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const x = event.nativeEvent.contentOffset.x;
@@ -87,18 +85,18 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
                 />
                 {fade.fromRight && (
                     <LinearGradient
-                        style={styles.gradient}
+                        style={[styles.gradient, styles.gradiendLeft]}
                         colors={fadeColorsLeft}
-                        start={{ x: fadeLocationsFromRight[0], y: 0 }}
-                        end={{ x: fadeLocationsFromRight[1], y: 0 }}
+                        start={{ x:0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
                     />
                 )}
                 {fade.fromLeft && (
                     <LinearGradient
-                        style={styles.gradient}
+                        style={[styles.gradient, styles.gradiendRight]}
                         colors={fadeColorsRight}
-                        start={{ x: fadeLocationsFromLeft[0], y: 0 }}
-                        end={{ x: fadeLocationsFromLeft[1], y: 0 }}
+                        start={{x: 0, y: 0 }}
+                        end={{x: 1, y: 0 }}
                     />
                 )}
             </View>
@@ -125,7 +123,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         top: 0,
-        right: 0,
-        left: 0,
+        width: spacings.xs
     },
+    gradiendRight: {
+        right: 0
+   },
+    gradiendLeft: {
+        left: 0
+    }
 });
