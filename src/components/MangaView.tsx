@@ -1,42 +1,55 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    ViewStyle,
+    ImageBackground,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { colors } from '../constants/colors';
 import { textStyles } from '../constants/textStyles';
 import { FavouriteButton } from './FavouriteButton';
+import { RatingView } from './RatingView';
 
 interface Props {
     showFavorite: boolean;
+    style?: ViewStyle;
+    textType: 'big' | 'small';
 }
 
-export const MangaView: React.FC<Props> = React.memo(({ showFavorite }) => {
-    return (
-        <View style={styles.container}>
-            <Image
-                style={styles.image}
-                source={require('../assets/images/manga.png')}
-            />
-            <LinearGradient
-                style={styles.gradient}
-                colors={['rgba(13, 13, 13, 0)', 'rgba(13, 13, 13, 0.903226)']}>
-                <Text
-                    numberOfLines={2}
-                    lineBreakMode="tail"
-                    style={[textStyles.headlineTable, styles.name]}>
-                    Манга с длинным названием
-                </Text>
-            </LinearGradient>
-            <View style={styles.ratingContainer}>
-                <Text style={[textStyles.headlineTable, styles.ratingNumber]}>
-                    5.00
-                </Text>
+export const MangaView: React.FC<Props> = React.memo(
+    ({ style, showFavorite, textType }) => {
+        return (
+            <View style={[styles.container, style]}>
+                <ImageBackground
+                    style={styles.image}
+                    source={require('../assets/images/manga.png')}
+                />
+                <LinearGradient
+                    style={styles.gradient}
+                    colors={[
+                        'rgba(13, 13, 13, 0)',
+                        'rgba(13, 13, 13, 0.903226)',
+                    ]}>
+                    <Text
+                        numberOfLines={2}
+                        lineBreakMode="tail"
+                        style={[
+                            textType === 'small'
+                                ? textStyles.headlineTable
+                                : textStyles.headlineNormal,
+                            styles.name,
+                        ]}>
+                        Манга с длинным названием
+                    </Text>
+                </LinearGradient>
+                <RatingView style={styles.ratingContainer} rating={5.0} />
+                {showFavorite && <FavouriteButton isFavourited={true} />}
             </View>
-            {showFavorite && (
-                <FavouriteButton isFavourited={true} />
-            )}
-        </View>
-    );
-});
+        );
+    },
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -68,12 +81,5 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 4,
         left: 4,
-        paddingVertical: 4,
-        paddingHorizontal: 8,
-        backgroundColor: colors.bright.primary,
-        borderRadius: 8,
     },
-    ratingNumber: {
-        color: colors.other.purple,
-    }
 });

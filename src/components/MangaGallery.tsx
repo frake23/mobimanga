@@ -81,7 +81,7 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
                     onScroll={handleScroll}
                     onEndReached={handleEndReach}
                     data={data ?? mockData}
-                    renderItem={() => <MangaView showFavorite={true} />}
+                    renderItem={() => <MangaView textType="small" showFavorite={false} />}
                 />
                 {fade.fromRight && (
                     <LinearGradient

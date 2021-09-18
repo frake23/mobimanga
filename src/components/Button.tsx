@@ -52,12 +52,12 @@ const primaryStyles = StyleSheet.create({
         
     },
     text: {
+        ...textStyles.spanBold,
         color: colors.bright.primary,
-        ...textStyles.spanBold
     },
     textSm: {
+        ...textStyles.smallSpanBold,
         color: colors.bright.primary,
-        ...textStyles.smallSpanBold
     },
 });
 
@@ -69,12 +69,12 @@ const secondaryStyles = StyleSheet.create({
         borderColor: colors.bright.tertiary
     },
     text: {
+        ...textStyles.spanMedium,
         color: colors.dark.tertiary,
-        ...textStyles.spanMedium
     },
     textSm: {
+        ...textStyles.smallSpanMedium,
         color: colors.dark.tertiary,
-        ...textStyles.smallSpanMedium
     }
 });
 

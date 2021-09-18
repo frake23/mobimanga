@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
     },
     notFavourite: {
-        backgroundColor: colors.bright.primary,
+        backgroundColor: colors.bright.secondary,
     },
     favourite: {
         backgroundColor: colors.other.red,
