@@ -1,8 +1,8 @@
 import React from 'react'
 import { Circle, Path } from 'react-native-svg'
-import { IconWrapper } from './IconWrapper'
+import { iconFromPath } from './iconFromPath'
 
-const ScreenshotIcon = IconWrapper(({color}) => {
+const ScreenshotIcon = iconFromPath(({color}) => {
     return (
         <>
             <Path 

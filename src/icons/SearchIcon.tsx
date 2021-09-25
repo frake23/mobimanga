@@ -1,9 +1,9 @@
 import React from 'react';
 import { Circle, Path } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper';
+import { iconFromPath } from './iconFromPath';
 import { PathPropsWithFill } from './PathProps';
 
-const SearchIcon = IconWrapper<PathPropsWithFill>(({color, type}) => {
+const SearchIcon = iconFromPath<PathPropsWithFill>(({color, type}) => {
     return (
         type === 'filled'
             ?

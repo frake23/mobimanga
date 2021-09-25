@@ -1,9 +1,9 @@
 import React from 'react';
 import { Path } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper';
+import { iconFromPath } from './iconFromPath';
 import { PathPropsWithNumber } from './PathProps';
 
-const CloseIcon = IconWrapper<PathPropsWithNumber>(({color, type}) => {
+const CloseIcon = iconFromPath<PathPropsWithNumber>(({color, type}) => {
     return (
         type === 1
             ?

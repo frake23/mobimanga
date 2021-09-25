@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ViewStyle } from 'react-native';
 import { colors } from '../constants/colors';
 import FavouriteIcon from '../icons/FavouriteIcon';
-
 interface FavouriteButtonProps {
     isFavourited: boolean;
     style?: ViewStyle;
 }
 
 export const FavouriteButton: React.FC<FavouriteButtonProps> = ({ isFavourited, style }) => {
+
     const [favourite, setFavourite] = useState(isFavourited);
 
     const handlePress = () => {
         setFavourite(!favourite);
-        console.log('pressed');
     };
 
     return (

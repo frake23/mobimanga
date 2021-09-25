@@ -1,8 +1,9 @@
 import React from 'react';
 import { IntroController } from '../modules/intro/IntroController';
+import MainNavigator from './MainNavigator';
 import useIntroScreen from './useIntroScreen';
 
-export const IntroSwitch: React.FC = () => {
-    const {intro, exitIntro} = useIntroScreen();
-    return intro ? <IntroController onExit={exitIntro}/> : null;
+export default function IntroSwitch() {
+    const {isIntro, exitIntro} = useIntroScreen();
+    return isIntro ? <IntroController onExit={exitIntro}/> : <MainNavigator/>;
 }

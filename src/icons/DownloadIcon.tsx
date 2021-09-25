@@ -1,8 +1,8 @@
 import React from 'react'
 import { Path } from 'react-native-svg'
-import { IconWrapper } from './IconWrapper'
+import { iconFromPath } from './iconFromPath'
 
-const DownloadIcon = IconWrapper(({color}) => {
+const DownloadIcon = iconFromPath(({color}) => {
     return (
         <>
             <Path 

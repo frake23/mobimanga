@@ -1,13 +1,13 @@
 import React from 'react';
 import { Path } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper';
+import { iconFromPath } from './iconFromPath';
 import { PathProps } from './PathProps';
 
 interface ArrowIconProps extends PathProps {
     type: 'left' | 'right' | 'up' | 'down'    
 }
 
-const ArrowIcon = IconWrapper<ArrowIconProps>(({type, color}) => {
+const ArrowIcon = iconFromPath<ArrowIconProps>(({type, color}) => {
     switch (type) {
         case 'left':
             return <Path d="M10 4L6 8L10 12" stroke={color} stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>

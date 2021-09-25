@@ -32,10 +32,7 @@ const fading = {
 };
 
 export const MangaGallery: React.FC<MangaGalleryProps> = ({ data, title }) => {
-    const [fade, setFade] = useState({
-        fromLeft: true,
-        fromRight: false,
-    });
+    const [fade, setFade] = useState(fading.onlyLeft);
     const { width } = useDimensions().window;
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {

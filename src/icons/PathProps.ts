@@ -1,7 +1,5 @@
-import { Color } from "react-native-svg";
-
 export interface PathProps {
-    color: Color
+    color: string
 }
 
 export interface PathPropsWithFill extends PathProps  {

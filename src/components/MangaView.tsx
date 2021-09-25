@@ -12,7 +12,6 @@ import { textStyles } from '../constants/textStyles';
 import { Manga } from '../parser/models/Manga';
 import { FavouriteButton } from './FavouriteButton';
 import { RatingView } from './RatingView';
-
 interface MangaViewProps {
     manga: Manga;
     showFavorite: boolean;
@@ -58,6 +57,7 @@ export const MangaView: React.FC<MangaViewProps> = React.memo(
         );
     },
 );
+
 
 const styles = StyleSheet.create({
     container: {

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Path } from 'react-native-svg'
-import { IconWrapper } from './IconWrapper'
+import { iconFromPath } from './iconFromPath'
 import { PathPropsWithSwitch } from './PathProps'
 
-const MoonIcon = IconWrapper<PathPropsWithSwitch>(({color, type}) => {
+const MoonIcon = iconFromPath<PathPropsWithSwitch>(({color, type}) => {
     return (
         type === 'on'
             ?

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Path } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper';
+import { iconFromPath } from './iconFromPath';
 import { PathPropsWithFill } from './PathProps';
 
-const FavouriteIcon = IconWrapper<PathPropsWithFill>(({color, type}) => {
+const FavouriteIcon = iconFromPath<PathPropsWithFill>(({color, type}) => {
     return (
         type === 'filled'
             ?
