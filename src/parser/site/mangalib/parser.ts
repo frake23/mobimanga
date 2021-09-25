@@ -27,10 +27,11 @@ export async function getList(offset: number, query?: string, sortOrder?: SortOr
         const card = $(element);
         const a = card.find('a.media-card').first();
         const href = relUrl(a.attr('href')!);
+        const srcData = a.attr('data-src')!;
         mangas.push({
             id: await generateUUID(href),
             title: card.find("h3").first().text() ?? '',
-            coverUrl: absUrl(a.attr('data-src')!),
+            coverUrl: absUrl(srcData.slice(srcData.indexOf("/uploads"))),
             rating: -1,
             url: href!,
             publicUrl: absUrl(href),

@@ -3,7 +3,7 @@ import { Path, Rect } from 'react-native-svg';
 import { IconWrapper } from './IconWrapper';
 import { PathProps } from './PathProps';
 
-interface GridIconProps {
+interface GridIconProps extends PathProps {
     type: 'big' | 'small'
 }
 
