@@ -1,9 +1,9 @@
 import React from 'react'
 import { Mask, Path, Rect } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper'
+import { iconFromPath } from './iconFromPath'
 import { PathPropsWithNumber } from './PathProps';
 
-const TomIcon = IconWrapper<PathPropsWithNumber>(({color, type}) => {
+const TomIcon = iconFromPath<PathPropsWithNumber>(({color, type}) => {
     return (
         type === 1
             ?

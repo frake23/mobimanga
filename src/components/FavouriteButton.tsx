@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, ViewStyle } from 'react-native';
 import { colors } from '../constants/colors';
 import FavouriteIcon from '../icons/FavouriteIcon';
 
 interface Props {
-    isFavourited: boolean;
+    isFavourited: boolean,
+    style: ViewStyle
 }
 
-export const FavouriteButton: React.FC<Props> = ({ isFavourited }) => {
+export const FavouriteButton: React.FC<Props> = ({ isFavourited, style }) => {
     const [favourite, setFavourite] = useState(isFavourited);
 
     const handlePress = () => {
         setFavourite(!favourite);
-        console.log('pressed');
     };
 
     return (
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <TouchableOpacity style={style} onPress={handlePress}>
             <View style={[favourite ? styles.favourite : styles.notFavourite, styles.wrapper]}>
                 <FavouriteIcon
                     size={16}
@@ -31,12 +31,6 @@ export const FavouriteButton: React.FC<Props> = ({ isFavourited }) => {
 };
 
 const styles = StyleSheet.create({
-    button: {
-        position: 'absolute',
-        top: 8,
-        right: 8,
-        zIndex: 10
-    },
     wrapper: {
         padding: 4,
         borderRadius: 8,

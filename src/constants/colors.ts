@@ -16,7 +16,7 @@ export const colors = {
     main: {
         primary: '#FB7B51',
         secondary: '#FB8E6A',
-        gradient: ['#F7906E', '#FB7B51']
+        gradient: ['#F7906E', '#FB7B51'] as [string, string]
     },
     other: {
         red: '#FA4636',

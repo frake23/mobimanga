@@ -1,13 +1,13 @@
 import React from 'react';
 import { Path, Rect } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper';
+import { iconFromPath } from './iconFromPath';
 import { PathProps } from './PathProps';
 
-interface GridIconProps {
+interface GridIconProps extends PathProps {
     type: 'big' | 'small'
 }
 
-const GridIcon = IconWrapper<GridIconProps>(({type, color}) => {
+const GridIcon = iconFromPath<GridIconProps>(({type, color}) => {
     return (
         type === 'big'
             ?

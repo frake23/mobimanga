@@ -6,7 +6,7 @@ import { textStyles } from '../constants/textStyles';
 import { FavouriteButton } from './FavouriteButton';
 
 interface Props {
-    showFavorite: boolean;
+    showFavorite: boolean,
 }
 
 export const MangaView: React.FC<Props> = React.memo(({ showFavorite }) => {
@@ -32,7 +32,7 @@ export const MangaView: React.FC<Props> = React.memo(({ showFavorite }) => {
                 </Text>
             </View>
             {showFavorite && (
-                <FavouriteButton isFavourited={true} />
+                <FavouriteButton isFavourited={true} style={styles.favouriteButton}/>
             )}
         </View>
     );
@@ -75,5 +75,11 @@ const styles = StyleSheet.create({
     },
     ratingNumber: {
         color: colors.other.purple,
-    }
+    },
+    favouriteButton: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        zIndex: 10
+    },
 });

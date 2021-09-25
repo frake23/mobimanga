@@ -1,8 +1,8 @@
 import React from 'react'
 import { Path } from 'react-native-svg';
-import { IconWrapper } from './IconWrapper'
+import { iconFromPath } from './iconFromPath'
 
-const LogoutIcon = IconWrapper(({color}) => {
+const LogoutIcon = iconFromPath(({color}) => {
     return (
         <>
             <Path 

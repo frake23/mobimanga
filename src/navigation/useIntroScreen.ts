@@ -20,7 +20,7 @@ function useIntroScreen() {
         await AsyncStorage.setItem(introKey, 'false');
     };
 
-    return {intro: isIntro, exitIntro}
+    return {isIntro, exitIntro}
 }
 
 export default useIntroScreen;

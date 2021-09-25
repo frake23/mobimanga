@@ -1,9 +1,7 @@
 import React from 'react';
 import { MangaGallery } from '../../components/MangaGallery';
 
-interface Props {}
-
-export const MainScreen: React.FC = () => {
+export const HomeController: React.FC = () => {
     return (
         <MangaGallery title="Манга сезона" />
     );
