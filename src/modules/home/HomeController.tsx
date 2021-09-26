@@ -6,6 +6,7 @@ import spacings from '../../constants/spacings';
 import { textStyles } from '../../constants/textStyles';
 import { Manga } from '../../parser/models/Manga';
 import { getList } from '../../parser/site/mangalib/parser';
+import { colors } from '../../constants/colors';
 
 const fetchManga = (
     setState: React.Dispatch<React.SetStateAction<Manga[]>>,
@@ -31,6 +32,7 @@ export const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: colors.bright.primary
     },
     list: {
         marginTop: spacings.md,

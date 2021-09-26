@@ -24,14 +24,14 @@ export default function MainNavigator() {
             }}
         >
             {Object.keys(sectionInfo).map(key => {
+                const section = sectionInfo[key as keyof typeof sectionInfo];
                 return (
                     <Tab.Screen
                         key={key}
                         name={key}
-                        component={View}
+                        component={section.Component}
                         options={{
                             tabBarIcon: ({ focused }) => {
-                                const section = sectionInfo[key as keyof typeof sectionInfo];
                                 const props: Parameters<typeof section.Icon>[0] = focused ? {
                                     color: colors.main.gradient,
                                     size: 24,
