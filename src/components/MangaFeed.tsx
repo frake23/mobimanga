@@ -6,7 +6,7 @@ import { ExtendedMangaView } from './ExtendedMangaView';
 import { MangaView } from './MangaView';
 import { SwitchGrid } from './SwitchGrid';
 
-interface Props {
+interface MangaFeedProps {
     render: () => React.ReactNode;
     style?: ViewStyle;
     data: Manga[];
@@ -14,7 +14,7 @@ interface Props {
 
 export type gridState = 'small' | 'big';
 
-export const MangaFeed: React.FC<Props> = ({ render, style, data }) => {
+export const MangaFeed: React.FC<MangaFeedProps> = ({ render, style, data }) => {
     const [grid, setGrid] = useState<gridState>('small');
 
     const renderItem = (item: Manga, index: number) => {

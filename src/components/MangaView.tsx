@@ -13,14 +13,14 @@ import { Manga } from '../parser/models/Manga';
 import { FavouriteButton } from './FavouriteButton';
 import { RatingView } from './RatingView';
 
-interface Props {
+interface MangaViewProps {
     manga: Manga;
     showFavorite: boolean;
     style?: ViewStyle;
     textType: 'big' | 'small' | 'without';
 }
 
-export const MangaView: React.FC<Props> = React.memo(
+export const MangaView: React.FC<MangaViewProps> = React.memo(
     ({ style, showFavorite, textType, manga }) => {
 
         return (

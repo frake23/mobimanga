@@ -7,15 +7,13 @@ import { textStyles } from '../../constants/textStyles';
 import { Manga } from '../../parser/models/Manga';
 import { getList } from '../../parser/site/mangalib/parser';
 
-interface Props {}
-
 const fetchManga = (
     setState: React.Dispatch<React.SetStateAction<Manga[]>>,
 ) => {
     getList(0).then(value => setState(value));
 };
 
-export const MainScreen: React.FC = () => {
+export const HomeScreen: React.FC = () => {
     const [data, setData] = useState<Manga[]>([]);
 
     useEffect(() => {

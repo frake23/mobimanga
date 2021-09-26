@@ -17,7 +17,7 @@ import { textStyles } from '../constants/textStyles';
 import { Manga } from '../parser/models/Manga';
 import { useDimensions } from '@react-native-community/hooks';
 
-interface Props { 
+interface MangaGalleryProps { 
     data: Manga[];
     title: string;
 }
@@ -31,7 +31,7 @@ const fading = {
     both: { fromLeft: true, fromRight: true },
 };
 
-export const MangaGallery: React.FC<Props> = ({ data, title }) => {
+export const MangaGallery: React.FC<MangaGalleryProps> = ({ data, title }) => {
     const [fade, setFade] = useState({
         fromLeft: true,
         fromRight: false,
@@ -65,7 +65,6 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
                     ItemSeparatorComponent={() => (
                         <ItemSeparator
                             size={spacings.xs}
-                            color={colors.bright.secondary}
                         />
                     )}
                     showsHorizontalScrollIndicator={false}

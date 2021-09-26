@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import { colors } from '../constants/colors';
 import { textStyles } from '../constants/textStyles';
 
-interface Props {
+interface RatingViewProps {
     rating: number;
     style?: ViewStyle;
 }
 
-export const RatingView: React.FC<Props> = ({ rating, style }) => {
+export const RatingView: React.FC<RatingViewProps> = ({ rating, style }) => {
     let textColorStyle = styles.ratingBad;
 
     if (rating >= 4) {
