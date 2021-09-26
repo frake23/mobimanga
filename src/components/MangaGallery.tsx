@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { MangaView } from './MangaView';
 import {
@@ -7,8 +7,9 @@ import {
     Text,
     NativeScrollEvent,
     NativeSyntheticEvent,
+    ListRenderItemInfo,
+    FlatList,
 } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 import spacings from '../constants/spacings';
 import { ItemSeparator } from './ItemSeparator';
 import { colors } from '../constants/colors';
@@ -16,19 +17,10 @@ import { textStyles } from '../constants/textStyles';
 import { Manga } from '../parser/models/Manga';
 import { useDimensions } from '@react-native-community/hooks';
 
-interface Props {
-    data?: Manga[];
+interface Props { 
+    data: Manga[];
     title: string;
 }
-
-const mockData = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    { id: 6 },
-];
 
 const fadeColorsLeft = [colors.bright.secondary, 'rgba(247, 247, 247, 0)'];
 const fadeColorsRight = [...fadeColorsLeft].reverse();
@@ -45,23 +37,22 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
         fromRight: false,
     });
     const { width } = useDimensions().window;
-    const listWidthRef = useRef(0);
 
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         const x = event.nativeEvent.contentOffset.x;
+        const dataLength = data.length / 3;
 
         if (x <= spacings.xs) {
             setFade(fading.onlyLeft);
-        } else if (x >= listWidthRef.current - spacings.xs) {
+        } else if (x >= width * (dataLength - 1) + spacings.xs * (dataLength + 1)) {
             setFade(fading.onlyRight);
         } else {
             setFade(fading.both);
         }
     };
 
-    // onEndReach срабатывает только 1 раз в самам начале, значит растояние до конца равно ширине
-    const handleEndReach = (info: { distanceFromEnd: number }) => {
-        listWidthRef.current = info.distanceFromEnd;
+    const renderItem = ({ item }: ListRenderItemInfo<Manga>) => {
+        return <MangaView textType="small" showFavorite={false} manga={item} />;
     };
 
     return (
@@ -78,16 +69,17 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
                         />
                     )}
                     showsHorizontalScrollIndicator={false}
+                    initialNumToRender={3}
                     onScroll={handleScroll}
-                    onEndReached={handleEndReach}
-                    data={data ?? mockData}
-                    renderItem={() => <MangaView showFavorite={true} />}
+                    onEndReachedThreshold={0.3}
+                    data={data}
+                    renderItem={renderItem}
                 />
                 {fade.fromRight && (
                     <LinearGradient
                         style={[styles.gradient, styles.gradiendLeft]}
                         colors={fadeColorsLeft}
-                        start={{ x:0, y: 0 }}
+                        start={{ x: 0, y: 0 }}
                         end={{ x: 1, y: 0 }}
                     />
                 )}
@@ -95,8 +87,8 @@ export const MangaGallery: React.FC<Props> = ({ data, title }) => {
                     <LinearGradient
                         style={[styles.gradient, styles.gradiendRight]}
                         colors={fadeColorsRight}
-                        start={{x: 0, y: 0 }}
-                        end={{x: 1, y: 0 }}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
                     />
                 )}
             </View>
@@ -123,12 +115,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         top: 0,
-        width: spacings.xs
+        width: spacings.xs,
     },
     gradiendRight: {
-        right: 0
-   },
+        right: 0,
+    },
     gradiendLeft: {
-        left: 0
-    }
+        left: 0,
+    },
 });
