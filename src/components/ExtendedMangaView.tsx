@@ -64,6 +64,6 @@ const styles = StyleSheet.create({
     },
     button: {},
     title: {
-        maxWidth: '90%',
+        maxWidth: '80%',
     },
 });

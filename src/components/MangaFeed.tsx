@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, ViewStyle } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    ViewStyle,
+    FlatList,
+    ListRenderItemInfo,
+} from 'react-native';
+import { colors } from '../constants/colors';
 import spacings from '../constants/spacings';
 import { Manga } from '../parser/models/Manga';
 import { ExtendedMangaView } from './ExtendedMangaView';
@@ -10,14 +17,20 @@ interface MangaFeedProps {
     render: () => React.ReactNode;
     style?: ViewStyle;
     data: Manga[];
+    renderOnTop: React.ReactNode
 }
 
 export type gridState = 'small' | 'big';
 
-export const MangaFeed: React.FC<MangaFeedProps> = ({ render, style, data }) => {
+export const MangaFeed: React.FC<MangaFeedProps> = ({
+    render,
+    style,
+    data,
+    renderOnTop
+}) => {
     const [grid, setGrid] = useState<gridState>('small');
 
-    const renderItem = (item: Manga, index: number) => {
+    const renderItem = ({ item, index }: ListRenderItemInfo<Manga>) => {
         return grid === 'big' ? (
             <View style={styles.bigGridItem} key={item.id}>
                 <MangaView
@@ -37,24 +50,45 @@ export const MangaFeed: React.FC<MangaFeedProps> = ({ render, style, data }) => 
     };
 
     return (
-        <View style={[styles.container, style]}>
-            <View style={styles.header}>
-                {render()}
-                <SwitchGrid grid={grid} setGrid={setGrid} />
-            </View>
-            <View style={styles.content}>{data.map(renderItem)}</View>
-        </View>
+        <FlatList
+            ListHeaderComponent={() => {
+                return (
+                    <View style={styles.renderOnTop}>
+                        {renderOnTop}
+                        <View style={styles.header}>
+                            {render()}
+                            <SwitchGrid grid={grid} setGrid={setGrid} />
+                        </View>
+                    </View>
+                );
+            }}
+            data={data}
+            renderItem={renderItem}
+            key={grid}
+            keyExtractor={item => item.id.toString()}
+            numColumns={grid === 'big' ? 2 : 1}
+            initialNumToRender={4}
+            style={[styles.container, style]}
+            windowSize={15}
+            showsVerticalScrollIndicator={false}
+        />
     );
 };
 
 const styles = StyleSheet.create({
+    renderOnTop: {
+        
+    },
     container: {
-        paddingHorizontal: spacings.xs,
+        backgroundColor: colors.bright.primary,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: "center"
+        alignItems: 'center',
+        marginBottom: spacings.sm,
+        marginHorizontal: spacings.xs,
+        marginTop: spacings.md
     },
     bigGridItem: {
         marginBottom: spacings.xs,
@@ -64,12 +98,15 @@ const styles = StyleSheet.create({
     smallGridItem: {
         flexBasis: '100%',
         marginBottom: spacings.xs,
+        marginHorizontal: spacings.xs,
     },
     marginRight: {
         marginRight: spacings.xs / 2,
+        marginLeft: spacings.xs,
     },
     marginLeft: {
         marginLeft: spacings.xs / 2,
+        marginRight: spacings.xs,
     },
     content: {
         flexDirection: 'row',

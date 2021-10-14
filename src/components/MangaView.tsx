@@ -21,7 +21,6 @@ interface MangaViewProps {
 
 export const MangaView: React.FC<MangaViewProps> = React.memo(
     ({ style, showFavorite, textType, manga }) => {
-
         return (
             <View style={[styles.container, style]}>
                 <ImageBackground

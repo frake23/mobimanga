@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../constants/colors';
-import sectionInfo from '../constants/sectionInfo';
+import sectionInfo from '../constants/SectionInfo';
 import spacings from '../constants/spacings';
 import { textStyles } from '../constants/textStyles';
 

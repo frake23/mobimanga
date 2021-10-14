@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { MangaGallery } from '../../components/MangaGallery';
 import { MangaFeed } from '../../components/MangaFeed';
 import spacings from '../../constants/spacings';
@@ -7,6 +7,7 @@ import { textStyles } from '../../constants/textStyles';
 import { Manga } from '../../parser/models/Manga';
 import { getList } from '../../parser/site/mangalib/parser';
 import { colors } from '../../constants/colors';
+import { View } from 'react-native-animatable';
 
 const fetchManga = (
     setState: React.Dispatch<React.SetStateAction<Manga[]>>,
@@ -21,18 +22,26 @@ export const HomeScreen: React.FC = () => {
         fetchManga(setData);
     }, [setData]);
 
+    const renderOnTop = (
+        <View>
+            <MangaGallery data={data} title={"Манга сезона"} />
+        </View>
+    )
+
     return (
-        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-            <MangaGallery title="Манга сезона" data={data} />
-            <MangaFeed data={data} style={styles.list} render={() => <Text style={textStyles.h4}>Рекомендации</Text>} />
-        </ScrollView>
+        <MangaFeed
+            data={data}
+            style={styles.list}
+            render={() => <Text style={textStyles.h4}>Рекомендации</Text>}
+            renderOnTop={renderOnTop}
+        />
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.bright.primary
+        backgroundColor: colors.bright.primary,
     },
     list: {
         marginTop: spacings.md,

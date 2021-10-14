@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
-import LinearGradient from 'react-native-linear-gradient';
+import React from 'react';
 import { MangaView } from './MangaView';
 import {
     StyleSheet,
     View,
     Text,
-    NativeScrollEvent,
-    NativeSyntheticEvent,
     ListRenderItemInfo,
     FlatList,
 } from 'react-native';
@@ -22,31 +19,8 @@ interface MangaGalleryProps {
     title: string;
 }
 
-const fadeColorsLeft = [colors.bright.secondary, 'rgba(247, 247, 247, 0)'];
-const fadeColorsRight = [...fadeColorsLeft].reverse();
-// Чтобы предотвратить бесполезный ререндеринг
-const fading = {
-    onlyLeft: { fromLeft: true, fromRight: false },
-    onlyRight: { fromLeft: false, fromRight: true },
-    both: { fromLeft: true, fromRight: true },
-};
-
 export const MangaGallery: React.FC<MangaGalleryProps> = ({ data, title }) => {
-    const [fade, setFade] = useState(fading.onlyLeft);
     const { width } = useDimensions().window;
-
-    const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const x = event.nativeEvent.contentOffset.x;
-        const dataLength = data.length / 3;
-
-        if (x <= spacings.xs) {
-            setFade(fading.onlyLeft);
-        } else if (x >= width * (dataLength - 1) + spacings.xs * (dataLength + 1)) {
-            setFade(fading.onlyRight);
-        } else {
-            setFade(fading.both);
-        }
-    };
 
     const renderItem = ({ item }: ListRenderItemInfo<Manga>) => {
         return <MangaView textType="small" showFavorite={false} manga={item} />;
@@ -66,27 +40,11 @@ export const MangaGallery: React.FC<MangaGalleryProps> = ({ data, title }) => {
                     )}
                     showsHorizontalScrollIndicator={false}
                     initialNumToRender={3}
-                    onScroll={handleScroll}
-                    onEndReachedThreshold={0.3}
                     data={data}
                     renderItem={renderItem}
+                    fadingEdgeLength={spacings.xs * 2}
+                    windowSize={10}
                 />
-                {fade.fromRight && (
-                    <LinearGradient
-                        style={[styles.gradient, styles.gradiendLeft]}
-                        colors={fadeColorsLeft}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                    />
-                )}
-                {fade.fromLeft && (
-                    <LinearGradient
-                        style={[styles.gradient, styles.gradiendRight]}
-                        colors={fadeColorsRight}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                    />
-                )}
             </View>
         </View>
     );
