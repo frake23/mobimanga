@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableNativeFeedback, View, ViewStyle} from "react-native";
+import {StyleSheet, TouchableNativeFeedback, View} from "react-native";
 import {colors} from "../constants/colors";
 import LinearGradient from "react-native-linear-gradient";
 import {IconType} from "../icons/types";

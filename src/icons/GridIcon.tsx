@@ -1,7 +1,6 @@
 import React from 'react';
 import { Path, Rect } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath';
-import { PathProps } from './types';
 
 interface GridIconProps {
     type: 'big' | 'small'
