@@ -1,9 +1,9 @@
 import React from 'react';
 import { Path } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath';
-import { PathProps } from './PathProps';
+import { PathProps } from './types';
 
-interface ArrowIconProps extends PathProps {
+interface ArrowIconProps {
     type: 'left' | 'right' | 'up' | 'down'    
 }
 

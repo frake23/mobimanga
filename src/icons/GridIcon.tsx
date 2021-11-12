@@ -1,9 +1,9 @@
 import React from 'react';
 import { Path, Rect } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath';
-import { PathProps } from './PathProps';
+import { PathProps } from './types';
 
-interface GridIconProps extends PathProps {
+interface GridIconProps {
     type: 'big' | 'small'
 }
 

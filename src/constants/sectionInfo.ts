@@ -1,10 +1,10 @@
-import { View } from "react-native-animatable";
+import { View } from "react-native";
 import FavouriteIcon from "../icons/FavouriteIcon";
 import HistoryIcon from "../icons/HistoryIcon";
 import HomeIcon from "../icons/HomeIcon";
 import ProfileIcon from "../icons/ProfileIcon";
 import SearchIcon from "../icons/SearchIcon";
-import { HomeScreen } from "../modules/home/HomeController";
+import { HomeScreen } from "../modules/home/HomeScreen";
 
 const sectionInfo = {
     Home: {
@@ -35,3 +35,4 @@ const sectionInfo = {
 }
 
 export default sectionInfo;
+export type SectionInfoKey = keyof typeof sectionInfo;

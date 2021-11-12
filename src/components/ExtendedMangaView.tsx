@@ -5,6 +5,7 @@ import { textStyles } from '../constants/textStyles';
 import { Manga } from '../parser/models/Manga';
 import { FavouriteButton } from './FavouriteButton';
 import { MangaView } from './MangaView';
+import {colors} from "../constants/colors";
 
 interface Props {
     manga: Manga;
@@ -20,7 +21,7 @@ export const ExtendedMangaView: React.FC<Props> = ({ manga }) => {
                     showFavorite={false}
                 />
             </View>
-            <View style={styles.text}>
+            <View style={styles.description}>
                 <View style={styles.header}>
                     <View style={styles.title}>
                         <Text
@@ -31,11 +32,11 @@ export const ExtendedMangaView: React.FC<Props> = ({ manga }) => {
                     </View>
                     <FavouriteButton
                         style={styles.button}
-                        isFavourited={false}
+                        isFavourite={false}
                     />
                 </View>
                 <View>
-                    <Text style={textStyles.table}>
+                    <Text style={styles.text}>
                         Краткое описание содержания манги (2-3 предложения)
                     </Text>
                 </View>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
     },
-    text: {
+    description: {
         flex: 2,
         marginLeft: spacings.xs,
     },
@@ -66,4 +67,8 @@ const styles = StyleSheet.create({
     title: {
         maxWidth: '80%',
     },
+    text: {
+        ...textStyles.table,
+        color: colors.dark.tertiary
+    }
 });

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Mask, Path, Rect } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath'
-import { PathPropsWithNumber } from './PathProps';
+import { PathPropsWithNumber } from './types';
 
 const TomIcon = iconFromPath<PathPropsWithNumber>(({color, type}) => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, ViewProps, ViewStyle} from "react-native";
+import {StyleSheet, Text, TouchableNativeFeedback, ViewProps, ViewStyle} from "react-native";
 import {textStyles} from "../constants/textStyles";
 import {colors} from "../constants/colors";
 
@@ -9,7 +9,7 @@ type ButtonProps = ViewProps & {
     size?: Size,
     color?: 'primary' | 'secondary',
     title: string,
-    onPress?: () => void
+    onPress: () => void
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -21,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
     const colorStyles = color === "primary" ? primaryStyles : secondaryStyles;
     return (
-        <TouchableOpacity
+        <TouchableNativeFeedback
             style={[
                 props.style,
                 colorStyles.button,
@@ -34,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
             ]}>
                 {title}
             </Text>
-        </TouchableOpacity>
+        </TouchableNativeFeedback>
     )
 }
 
