@@ -5,10 +5,14 @@ import FavouriteIcon from '../icons/FavouriteIcon';
 interface FavouriteButtonProps {
     isFavourited: boolean;
     style?: ViewStyle;
+    type?: 'big' | 'small';
 }
 
-export const FavouriteButton: React.FC<FavouriteButtonProps> = ({ isFavourited, style }) => {
-
+export const FavouriteButton: React.FC<FavouriteButtonProps> = ({
+    isFavourited,
+    style,
+    type="small",
+}) => {
     const [favourite, setFavourite] = useState(isFavourited);
 
     const handlePress = () => {
@@ -17,7 +21,12 @@ export const FavouriteButton: React.FC<FavouriteButtonProps> = ({ isFavourited, 
 
     return (
         <TouchableOpacity style={style} onPress={handlePress}>
-            <View style={[favourite ? styles.favourite : styles.notFavourite, styles.wrapper]}>
+            <View
+                style={[
+                    favourite ? styles.favourite : styles.notFavourite,
+                    styles.wrapper,
+                    type === 'big' && styles.bigPadding,
+                ]}>
                 <FavouriteIcon
                     size={16}
                     type={favourite ? 'filled' : 'outlined'}
@@ -31,10 +40,12 @@ export const FavouriteButton: React.FC<FavouriteButtonProps> = ({ isFavourited, 
 };
 
 const styles = StyleSheet.create({
+    bigPadding: {
+        padding: 8,
+    },
     wrapper: {
         padding: 4,
         borderRadius: 8,
-
     },
     notFavourite: {
         backgroundColor: colors.bright.secondary,
