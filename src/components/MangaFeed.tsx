@@ -13,7 +13,7 @@ import { MangaView } from './MangaView';
 import { SwitchGrid } from './SwitchGrid';
 
 interface MangaFeedProps {
-    render: () => React.ReactNode;
+    render: React.ReactNode;
     data: Manga[];
     renderOnTop: React.ReactNode
 }
@@ -53,7 +53,7 @@ export const MangaFeed: React.FC<MangaFeedProps> = ({
                     <View style={styles.renderOnTop}>
                         {renderOnTop}
                         <View style={styles.header}>
-                            {render()}
+                            {render}
                             <SwitchGrid grid={grid} setGrid={setGrid} />
                         </View>
                     </View>

@@ -15,6 +15,7 @@ interface TabScreenHeaderProps {
 
 export const TabScreenHeader: React.FC<TabScreenHeaderProps> = ({sectionKey, extendable, onSearch}) => {
     const section = sectionInfo[sectionKey];
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>

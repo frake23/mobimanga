@@ -22,17 +22,17 @@ export const HomeScreen: React.FC = () => {
     }, [setData]);
 
     const renderOnTop = (
-        <View>
+        <>
+            <TabScreenHeader sectionKey="Home" extendable={false} onSearch={() => null}/>
             <MangaGallery data={data} title={"Манга сезона"}/>
-        </View>
+        </>
     )
 
     return (
         <View style={styles.container}>
-            <TabScreenHeader sectionKey="Home" extendable={false} onSearch={() => null}/>
             <MangaFeed
                 data={data}
-                render={() => <Text style={textStyles.h4}>Рекомендации</Text>}
+                render={<Text style={textStyles.h4}>Рекомендации</Text>}
                 renderOnTop={renderOnTop}
             />
         </View>
