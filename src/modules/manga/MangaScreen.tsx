@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Image,
     ImageBackground,
     ScrollView,
     StyleSheet,
@@ -73,12 +74,13 @@ export const MangaScreen = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground
+            <Image
                 style={styles.image}
                 source={require('../../assets/images/manga.png')}
-                resizeMode="cover"
+                resizeMode="stretch"
             />
-            <ScrollView style={styles.main}>
+            <View style={styles.main}>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.header}>
                     <Text
                         numberOfLines={2}
@@ -118,25 +120,29 @@ export const MangaScreen = () => {
                     />
                 </View>
             </ScrollView>
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: "flex-end"
     },
     image: {
-        maxHeight: '70%',
-        flex: 1,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "70%"
     },
     main: {
-        padding: spacings.xs,
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
+        paddingHorizontal: spacings.xs,
+        paddingTop: spacings.xs,
         backgroundColor: colors.bright.primary,
+        zIndex: 2,
+        maxHeight: "90%"
     },
     text: {
         maxWidth: '80%',
@@ -151,6 +157,7 @@ const styles = StyleSheet.create({
     },
     buttonsWrapper: {
         flexDirection: 'row',
+        marginBottom: spacings.xs
     },
     button: {
         flex: 1,
