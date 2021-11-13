@@ -1,7 +1,7 @@
 import React from 'react'
 import { Path } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath'
-import { PathPropsWithSwitch } from './PathProps'
+import { PathPropsWithSwitch } from './types'
 
 const EyeIcon = iconFromPath<PathPropsWithSwitch>(({color, type}) => {
     return (

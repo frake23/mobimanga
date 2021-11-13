@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../constants/colors';
-import sectionInfo from '../constants/SectionInfo';
+import sectionInfo, {SectionInfoKey} from '../constants/sectionInfo';
 import spacings from '../constants/spacings';
 import { textStyles } from '../constants/textStyles';
 
@@ -18,13 +18,13 @@ export default function MainNavigator() {
                     borderTopLeftRadius: 12,
                     borderTopRightRadius: 12,
                     height: 68,
-                    elevation: 18
+                    elevation: 12,
                 },
                 headerShown: false
             }}
         >
-            {Object.keys(sectionInfo).map(key => {
-                const section = sectionInfo[key as keyof typeof sectionInfo];
+            {Object.keys(sectionInfo).map((key) => {
+                const section = sectionInfo[key as SectionInfoKey];
                 return (
                     <Tab.Screen
                         key={key}
@@ -67,6 +67,7 @@ const Tab = createBottomTabNavigator();
 const styles = StyleSheet.create({
     iconText: {
         ...textStyles.tiny,
+        color: colors.dark.fivefold,
         marginTop: 4
     },
     wrapper: {

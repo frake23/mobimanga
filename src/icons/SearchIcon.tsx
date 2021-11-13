@@ -1,7 +1,7 @@
 import React from 'react';
 import { Circle, Path } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath';
-import { PathPropsWithFill } from './PathProps';
+import { PathPropsWithFill } from './types';
 
 const SearchIcon = iconFromPath<PathPropsWithFill>(({color, type}) => {
     return (

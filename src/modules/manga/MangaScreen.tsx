@@ -78,7 +78,7 @@ export const MangaScreen = () => {
                 source={require('../../assets/images/manga.png')}
                 resizeMode="cover"
             />
-            <ScrollView contentContainerStyle={{flexGrow: 1}} style={styles.main}>
+            <ScrollView style={styles.main}>
                 <View style={styles.header}>
                     <Text
                         numberOfLines={2}
@@ -86,7 +86,7 @@ export const MangaScreen = () => {
                         style={[textStyles.h3, styles.text]}>
                         Манга с длинным названием
                     </Text>
-                    <FavouriteButton type="big" isFavourited={false} />
+                    <FavouriteButton type="big" isFavourite={false} />
                 </View>
                 <View style={styles.description}>
                     <Text style={textStyles.body}>
@@ -108,11 +108,13 @@ export const MangaScreen = () => {
                         title="Скачать все"
                         color="secondary"
                         style={styles.button}
+                        onPress={() => null}
                     />
                     <Button
                         title="Читать сейчас"
                         color="primary"
                         style={[styles.button, styles.secondButtonMarginLeft]}
+                        onPress={() => null}
                     />
                 </View>
             </ScrollView>
@@ -142,6 +144,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: "flex-start"
     },
     description: {
         marginVertical: spacings.sm,

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
     StyleSheet,
     View,
-    ViewStyle,
     FlatList,
     ListRenderItemInfo,
 } from 'react-native';
@@ -14,8 +13,7 @@ import { MangaView } from './MangaView';
 import { SwitchGrid } from './SwitchGrid';
 
 interface MangaFeedProps {
-    render: () => React.ReactNode;
-    style?: ViewStyle;
+    render: React.ReactNode;
     data: Manga[];
     renderOnTop: React.ReactNode
 }
@@ -24,7 +22,6 @@ export type gridState = 'small' | 'big';
 
 export const MangaFeed: React.FC<MangaFeedProps> = ({
     render,
-    style,
     data,
     renderOnTop
 }) => {
@@ -56,7 +53,7 @@ export const MangaFeed: React.FC<MangaFeedProps> = ({
                     <View style={styles.renderOnTop}>
                         {renderOnTop}
                         <View style={styles.header}>
-                            {render()}
+                            {render}
                             <SwitchGrid grid={grid} setGrid={setGrid} />
                         </View>
                     </View>
@@ -68,7 +65,7 @@ export const MangaFeed: React.FC<MangaFeedProps> = ({
             keyExtractor={item => item.id.toString()}
             numColumns={grid === 'big' ? 2 : 1}
             initialNumToRender={4}
-            style={[styles.container, style]}
+            style={[styles.container]}
             windowSize={15}
             showsVerticalScrollIndicator={false}
         />

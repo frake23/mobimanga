@@ -27,10 +27,13 @@ export const MangaView: React.FC<MangaViewProps> = React.memo(
                     style={styles.image}
                     source={{ uri: manga.coverUrl }}
                 />
-                <RatingView
-                    style={styles.ratingContainer}
-                    rating={manga.rating}
-                />
+                {
+                    manga.rating !== -1 &&
+                    <RatingView
+                        style={styles.ratingContainer}
+                        rating={manga.rating}
+                    />
+                }
                 {textType !== 'without' && (
                     <LinearGradient
                         style={styles.gradient}
@@ -51,7 +54,7 @@ export const MangaView: React.FC<MangaViewProps> = React.memo(
                         </Text>
                     </LinearGradient>
                 )}
-                {showFavorite && <FavouriteButton style={styles.button} isFavourited={true} />}
+                {showFavorite && <FavouriteButton style={styles.button} isFavourite={true} />}
             </View>
         );
     },
@@ -93,6 +96,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 8,
         right: 8,
-        zIndex: 10
+        zIndex: 10,
+
     },
 });

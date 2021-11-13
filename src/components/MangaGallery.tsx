@@ -52,7 +52,6 @@ export const MangaGallery: React.FC<MangaGalleryProps> = ({ data, title }) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: spacings.sm,
         padding: spacings.xs,
         backgroundColor: colors.bright.secondary,
         aspectRatio: 360 / 224,

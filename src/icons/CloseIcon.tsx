@@ -1,7 +1,7 @@
 import React from 'react';
 import { Path } from 'react-native-svg';
 import { iconFromPath } from './iconFromPath';
-import { PathPropsWithNumber } from './PathProps';
+import { PathPropsWithNumber } from './types';
 
 const CloseIcon = iconFromPath<PathPropsWithNumber>(({color, type}) => {
     return (

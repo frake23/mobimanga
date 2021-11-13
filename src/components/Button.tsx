@@ -1,55 +1,57 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, ViewProps, ViewStyle} from "react-native";
-import {textStyles} from "../constants/textStyles";
-import {colors} from "../constants/colors";
+import {
+    StyleSheet,
+    Text,
+    TouchableNativeFeedback,
+    View,
+    ViewProps,
+    ViewStyle,
+} from 'react-native';
+import { textStyles } from '../constants/textStyles';
+import { colors } from '../constants/colors';
 
 type Size = 'sm' | 'md' | 'lg';
 
 type ButtonProps = ViewProps & {
-    size?: Size,
-    color?: 'primary' | 'secondary',
-    title: string,
-    onPress?: () => void
-}
+    size?: Size;
+    color?: 'primary' | 'secondary';
+    title: string;
+    onPress: () => void;
+};
 
 export const Button: React.FC<ButtonProps> = ({
-    size='lg',
-    color='primary',
+    size = 'lg',
+    color = 'primary',
     title,
     onPress,
     ...props
 }) => {
-    const colorStyles = color === "primary" ? primaryStyles : secondaryStyles;
+    const colorStyles = color === 'primary' ? primaryStyles : secondaryStyles;
     return (
-        <TouchableOpacity
-            style={[
-                props.style,
-                colorStyles.button,
-                sizeStyles[size]
-            ]}
-            onPress={onPress}
-        >
-            <Text style={[
-                size === 'sm' ? colorStyles.textSm : colorStyles.text
-            ]}>
-                {title}
-            </Text>
-        </TouchableOpacity>
-    )
-}
+        <TouchableNativeFeedback onPress={onPress}>
+            <View style={[props.style, colorStyles.button, sizeStyles[size]]}>
+                <Text
+                    style={[
+                        size === 'sm' ? colorStyles.textSm : colorStyles.text,
+                    ]}>
+                    {title}
+                </Text>
+            </View>
+        </TouchableNativeFeedback>
+    );
+};
 
 const buttonBase: ViewStyle = {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    borderRadius: 8
-}
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 8,
+};
 
 const primaryStyles = StyleSheet.create({
     button: {
         ...buttonBase,
         backgroundColor: colors.main.primary,
-        
     },
     text: {
         ...textStyles.spanBold,
@@ -66,7 +68,7 @@ const secondaryStyles = StyleSheet.create({
         ...buttonBase,
         backgroundColor: 'transparent',
         borderWidth: 1,
-        borderColor: colors.bright.tertiary
+        borderColor: colors.bright.tertiary,
     },
     text: {
         ...textStyles.spanMedium,
@@ -75,20 +77,20 @@ const secondaryStyles = StyleSheet.create({
     textSm: {
         ...textStyles.smallSpanMedium,
         color: colors.dark.tertiary,
-    }
+    },
 });
 
 const sizeStyles = StyleSheet.create({
     sm: {
         paddingVertical: 8,
-        paddingHorizontal: 12
+        paddingHorizontal: 12,
     },
     md: {
         paddingVertical: 12,
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
     },
     lg: {
         paddingVertical: 16,
-        paddingHorizontal: 24
-    }
-})
+        paddingHorizontal: 24,
+    },
+});

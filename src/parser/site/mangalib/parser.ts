@@ -5,14 +5,17 @@ import {MangaTag} from "../../models/MangaTag";
 import cheerio from 'cheerio';
 import {generateUUID, urlUtils} from "../../utils";
 import {MangaChapter} from "../../models/MangaChapter";
+import {Parser} from "../../types";
 
 const baseUrl = "https://mangalib.me";
 
 const {absUrl, relUrl} = urlUtils(baseUrl);
 
-export async function getList(offset: number, query?: string, sortOrder?: SortOrder, tag?: MangaTag): Promise<Manga[]> {
+const MangalibParser = {} as Parser;
+
+MangalibParser.getList =  async function (offset: number, query=undefined, sortOrder=undefined, tag=undefined) {
     if (query)
-        return offset === 0 ? search(query) : [];
+        return offset === 0 ? this.search(query) : [];
     const page = offset / 60; // int
     const url
         = `${baseUrl}/manga-list?dir=${getSortKey(sortOrder)}&page=${page}${tag ? '&includeGenres[]=' + tag.key : ''}`;
@@ -40,7 +43,7 @@ export async function getList(offset: number, query?: string, sortOrder?: SortOr
     return mangas;
 }
 
-export async function getDetails(manga: Manga): Promise<Manga> {
+MangalibParser.getDetails = async function (manga) {
     const fullUrl = absUrl(manga.url);
     const html = await (await fetch(`${fullUrl}?section=info`)).text();
     const $ = cheerio.load(html);
@@ -106,11 +109,11 @@ export async function getDetails(manga: Manga): Promise<Manga> {
     } as Manga;
 }
 
-export async function getPages() {
+MangalibParser.getPages = async function() {
     // TODO: complete
 }
 
-export async function getTags() {
+MangalibParser.getTags = async function () {
     // TODO: complete
 }
 
@@ -131,7 +134,7 @@ function getSortKey(sortOrder?: SortOrder) {
     }
 }
 
-async function search(query: string): Promise<Manga[]> {
+MangalibParser.search = async function(query) {
     const json = await (await fetch(`${baseUrl}/search?type=manga&q=${query}`)).json() as SearchJson;
     return Promise.all(json.map(async (el) => {
         const url = `/${el.slug}`;
@@ -147,3 +150,5 @@ async function search(query: string): Promise<Manga[]> {
         }
     }))
 }
+
+export default MangalibParser

@@ -1,15 +1,7 @@
 import React from 'react';
-import { ViewStyle } from 'react-native';
 import { Svg, Defs, LinearGradient, Stop } from 'react-native-svg';
-import {PathProps} from './PathProps';
+import {IconFromPathFn} from './types';
 
-export type IconProps = {
-    color: string | [string, string],
-    size: number ,
-    style?: ViewStyle
-}
-type IconFromPathFn = <T extends PathProps>(Path: (props: T) => JSX.Element) 
-                        => React.FC<Omit<T, keyof PathProps> & IconProps>;
 
 export const iconFromPath: IconFromPathFn = (Path) => ({size, color, style, ...props}) => {
     const gradient = Array.isArray(color);

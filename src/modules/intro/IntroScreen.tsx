@@ -1,55 +1,94 @@
-import React from 'react';
-import {StyleSheet, Text, View, Image} from "react-native";
-import spacings from "../../constants/spacings";
-import {textStyles} from "../../constants/textStyles";
-import {colors} from "../../constants/colors";
-import { useDimensions, useImageDimensions } from '@react-native-community/hooks';
-import { URISource } from '@react-native-community/hooks/lib/useImageDimensions';
+import React, {useEffect, useRef, useState} from 'react';
+import {FlatList, StyleSheet} from 'react-native';
+import {IntroView} from './IntroView';
+import { IntroNavigation } from './IntroNavigation';
+import spacings from '../../constants/spacings';
+import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import introScreensData from '../../constants/introScreenData';
 
 interface IntroScreenProps {
-    title: string,
-    text: string,
-    imgSrc: URISource
+	onExit: () => void
 }
 
-export const IntroScreen: React.FC<IntroScreenProps> = React.memo(
-    ({title, text, imgSrc}) => {
-        let {width} = useDimensions().window;
-        const {dimensions, loading} = useImageDimensions(imgSrc);
-        width -= 2 * spacings.xs;
-        if (loading) return null;
-        return (
-            <View style={[styles.container, {width}]}>
-                <Image
-                    source={imgSrc}
-                    style={[{width, height: width / dimensions?.aspectRatio!}, styles.image]}
-                />
-                <Text style={styles.title}>
-                    {title}
-                </Text>
-                <Text style={styles.text}>
-                    {text}
-                </Text>
-            </View>
-        )
-}
-)
+export const IntroScreen: React.FC<IntroScreenProps> = ({onExit}) => {
+	const [selectedItem, setSelectedItem] = useState(0);
+
+	const ref = useRef(null);
+	const setNext = () => {
+		if (selectedItem === introScreensData.length - 1)
+			return;
+		setSelectedItem(selectedItem + 1);
+	}
+
+	const setPrev = () => {
+		if (selectedItem === 0)
+			return;
+		setSelectedItem(selectedItem - 1);
+	}
+
+	useEffect(() => {
+		// @ts-ignore
+		ref?.current?.scrollToIndex({
+			index: selectedItem,
+			animated: true
+		})
+	}, [selectedItem])
+
+
+	return (
+		<SafeAreaView style={styles.wrapper}>
+			<FlingGestureHandler
+				direction={Directions.LEFT}
+				onHandlerStateChange={e => {
+					if (e.nativeEvent.state === State.END)
+						setNext()
+				}}
+			>
+				<FlingGestureHandler
+					direction={Directions.RIGHT}
+					onHandlerStateChange={e => {
+						if (e.nativeEvent.state === State.END)
+							setPrev()
+					}}
+				>
+					<FlatList
+						ref={ref}
+						initialScrollIndex={selectedItem}
+						data={introScreensData}
+						keyExtractor={item => item.id}
+						scrollEnabled={false}
+						pagingEnabled
+						horizontal
+						showsHorizontalScrollIndicator={false}
+						renderItem={({item}) => 
+							<IntroView
+								imgSrc={item.imgSrc}
+								title={item.title}
+								text={item.text}
+							/>
+						}
+					/>
+				</FlingGestureHandler>
+			</FlingGestureHandler>
+
+			<IntroNavigation
+				selected={selectedItem}
+				viewsCount={introScreensData.length}
+				onNext={setNext}
+				onExit={onExit}
+			/>
+		</SafeAreaView>
+	);
+};
 
 const styles = StyleSheet.create({
-    container: {
-        alignItems: "center",
-    },
-    title: {
-        marginBottom: spacings.xs,
-        ...textStyles.h3,
-        textAlign: "center"
-    },
-    text: {
-        ...textStyles.body,
-        color: colors.dark.tertiary,
-        textAlign: "center"
-    },
-    image: {
-        marginVertical: spacings.xl
-    }
+	wrapper: {
+		alignItems: 'center',
+		flex: 1,
+        paddingHorizontal: spacings.xs,
+	},
+	navContainer: {
+		marginBottom: spacings.sm * 2
+	}
 })
